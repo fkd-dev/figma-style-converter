@@ -1,0 +1,30 @@
+<h2>Styles Converter for flutter</h2>
+<p></p>
+<!-- <p>Count: <input id="count" value="5"></p> -->
+<button id="analyze">Analyze</button>
+<button id="close">Close</button>
+<button id="copy">Copy!</button>
+<br>
+<br>
+<label for="result">Analysis result:</label>
+<br>
+<textarea id="result" name="story" rows="30" cols="84" style="overflow:auto;resize:none" readonly>
+</textarea>
+<script>
+
+document.getElementById('analyze').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'analyze' } }, '*')
+}
+
+document.getElementById('close').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'close' } }, '*')
+}
+
+window.addEventListener("message", (event) => {
+  const message = event.data.pluginMessage
+	if (message.type === 'done') {
+    document.getElementById('result').value = message.result;
+  }
+})
+
+</script>

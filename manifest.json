@@ -1,0 +1,10 @@
+{
+  "name": "StylesConverterForFlutter",
+  "id": "1152825815981716337",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html"
+}
