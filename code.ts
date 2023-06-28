@@ -21,6 +21,7 @@ const textTmp = `
   TextStyle get :name => const TextStyle(
     fontSize: :fontSize,
     decoration: :decoration,
+    fontFamily: :fontName,
     fontStyle: :fontStyle,
     fontWeight: :fontWeight,
     height: :height / :fontSize,
@@ -86,6 +87,7 @@ function convertTextStyleToDart(): string {
       const weight = fontWeight(value.fontName.style);
       const height = lineHeight(value.lineHeight, value.fontSize);
       const spacing = as2decimalPlaces(value.letterSpacing.value).toString();
+      const fontName = getFontName(value.fontName);
 
       let v: string = textTmp.replace(/:name/g, name);
       v = v.replace(/:fontSize/g, size);
@@ -94,6 +96,7 @@ function convertTextStyleToDart(): string {
       v = v.replace(/:fontWeight/g, weight);
       v = v.replace(/:height/g, height);
       v = v.replace(/:space/g, spacing);
+      v = v.replace(/:fontName/g, fontName);
       result = result + v;
     });
     
@@ -139,6 +142,10 @@ function fontWeight(style: string): string {
     : style.includes('SemiBold')    ? 'FontWeight.w600'
     : style.includes('Bold')        ? 'FontWeight.w700'
     : 'FontWeight.w400';
+}
+
+function getFontName(font: FontName): string {
+  return font.family + font.style;
 }
 
 function fontStyle(style: string): string {
