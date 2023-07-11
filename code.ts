@@ -27,6 +27,19 @@ const textTmp = `
     letterSpacing: :space,
   );
 `;
+const textWithFontTmp = `
+  TextStyle get :name => const TextStyle(
+    fontSize: :fontSize,
+    decoration: :decoration,
+    fontFamily: ':fontName',
+    fontStyle: :fontStyle,
+    fontWeight: :fontWeight,
+    height: :height / :fontSize,
+    letterSpacing: :space,
+  );
+`;
+
+let hasIncludeFontName: boolean = false;
 
 figma.showUI(__html__, {width: 600, height: 600, title: "Styles converter"});
 
@@ -40,6 +53,10 @@ figma.ui.onmessage = msg => {
 
   if (msg.type === 'close') {
     figma.closePlugin();
+  }
+
+  if (msg.type === 'fontname') {
+    hasIncludeFontName = msg.hasChecked;
   }
 };
 
@@ -86,15 +103,28 @@ function convertTextStyleToDart(): string {
       const weight = fontWeight(value.fontName.style);
       const height = lineHeight(value.lineHeight, value.fontSize);
       const spacing = as2decimalPlaces(value.letterSpacing.value).toString();
+      const fontName = getFontName(value.fontName);
 
-      let v: string = textTmp.replace(/:name/g, name);
-      v = v.replace(/:fontSize/g, size);
-      v = v.replace(/:decoration/g, decoration);
-      v = v.replace(/:fontStyle/g, style);
-      v = v.replace(/:fontWeight/g, weight);
-      v = v.replace(/:height/g, height);
-      v = v.replace(/:space/g, spacing);
-      result = result + v;
+      if (hasIncludeFontName) {
+        let v: string = textWithFontTmp.replace(/:name/g, name);
+        v = v.replace(/:fontSize/g, size);
+        v = v.replace(/:decoration/g, decoration);
+        v = v.replace(/:fontStyle/g, style);
+        v = v.replace(/:fontWeight/g, weight);
+        v = v.replace(/:height/g, height);
+        v = v.replace(/:space/g, spacing);
+        v = v.replace(/:fontName/g, fontName);
+        result = result + v;
+      } else {
+        let v: string = textTmp.replace(/:name/g, name);
+        v = v.replace(/:fontSize/g, size);
+        v = v.replace(/:decoration/g, decoration);
+        v = v.replace(/:fontStyle/g, style);
+        v = v.replace(/:fontWeight/g, weight);
+        v = v.replace(/:height/g, height);
+        v = v.replace(/:space/g, spacing);
+        result = result + v;
+      }
     });
     
     return textStyleSourceCode.replace(/:texts/, result);
@@ -139,6 +169,11 @@ function fontWeight(style: string): string {
     : style.includes('SemiBold')    ? 'FontWeight.w600'
     : style.includes('Bold')        ? 'FontWeight.w700'
     : 'FontWeight.w400';
+}
+
+function getFontName(font: FontName): string {
+  const name = font.family.replace(/\s/g, "");
+  return `${name}-${font.style}`;
 }
 
 function fontStyle(style: string): string {
