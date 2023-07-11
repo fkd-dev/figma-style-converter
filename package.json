@@ -1,9 +1,10 @@
 {
-  "name": "Styles-converter-for-Flutter",
+  "name": "styles_converter_for_flutter",
   "version": "1.0.0",
   "description": "Your Figma Plugin",
   "main": "code.js",
   "scripts": {
+    "dev": "tsc -w",
     "build": "tsc -p tsconfig.json",
     "watch": "npm run build -- --watch"
   },

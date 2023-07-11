@@ -3,7 +3,11 @@
 <!-- <p>Count: <input id="count" value="5"></p> -->
 <button id="analyze">Analyze</button>
 <button id="close">Close</button>
-<br>
+<div>
+  <br>
+  <input type="checkbox" id="fontname" name="fontname">
+  <label for="fontname">Include font name</label>
+</div>
 <br>
 <label for="result">Analysis result:</label>
 <br>
@@ -18,6 +22,11 @@ document.getElementById('analyze').onclick = () => {
 document.getElementById('close').onclick = () => {
   parent.postMessage({ pluginMessage: { type: 'close' } }, '*')
 }
+
+document.getElementById('fontname').addEventListener("change", () => {
+  const checkbox = document.getElementById('fontname');
+  parent.postMessage({ pluginMessage: { type: 'fontname', hasChecked: checkbox.checked } }, '*')
+})
 
 window.addEventListener("message", (event) => {
   const message = event.data.pluginMessage
