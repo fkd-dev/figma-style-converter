@@ -11,7 +11,7 @@ Figma License
 https://www.figma.com/legal/community-free-resource-license/?fuid=1067836810959321383
 
 Repository License
-
+MIT License
 
 ## How to Builds this Plugin
 
