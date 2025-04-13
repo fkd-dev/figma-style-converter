@@ -1,3 +1,20 @@
+# Figma Styles Convertor on Figma Plugins
+
+👇️ Try on Figma Figma !! 👇️  
+https://www.figma.com/community/plugin/1152825815981716337/figma-styles-converter-for-flutter
+
+
+![0fa950ddd44786171fe698929e5eb4a5c5548a32 (1)](https://github.com/user-attachments/assets/8f82075d-de15-43c1-ae97-b8a6867f2b38)
+
+
+Figma License  
+https://www.figma.com/legal/community-free-resource-license/?fuid=1067836810959321383
+
+Repository License
+
+
+## How to Builds this Plugin
+
 Below are the steps to get your plugin running. You can also find instructions at:
 
   https://www.figma.com/plugin-docs/setup/
