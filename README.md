@@ -1,6 +1,6 @@
 # Figma Styles Convertor on Figma Plugins
 
-👇️ Try on Figma Figma !! 👇️  
+👇️ Try on Figma !! 👇️  
 https://www.figma.com/community/plugin/1152825815981716337/figma-styles-converter-for-flutter
 
 
